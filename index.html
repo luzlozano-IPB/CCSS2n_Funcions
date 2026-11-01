@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Límits i Continuïtat</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --paper: #ffffff;
+      --ink: #182033;
+      --muted: #6b7280;
+      --accent: #4f46e5;
+      --accent-soft: #eef0ff;
+      --line: #e5e7eb;
+      --formula: #e2f0fd;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 0%, #e8ebff 0, transparent 32rem),
+        radial-gradient(circle at 90% 10%, #edf5ff 0, transparent 28rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    .wrapper { max-width: 980px; margin: 0 auto; padding: 34px 20px 70px; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 44px clamp(26px, 5vw, 58px);
+      color: white;
+      background: linear-gradient(135deg, rgba(37, 32, 111, 0.75), rgba(91, 92, 226, 0.75)), 
+                  url('Imatges/FonsWeb3.jpg') center/cover no-repeat;
+      box-shadow: 0 24px 60px rgba(45, 43, 130, .20);
+      margin-bottom: 26px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute; width: 220px; height: 220px; border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .18);
+      right: -55px; top: -70px;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      line-height: 1.02; margin: 10px 0 12px; letter-spacing: -.04em;
+    }
+    .grid { display: grid; gap: 18px; }
+    .card {
+      position: relative; background: var(--paper); border: 1px solid var(--line);
+      border-radius: 20px; padding: 28px 30px 30px 30px;
+      box-shadow: 0 10px 28px rgba(16, 24, 40, .055);
+    }
+    h2 { margin: 0 0 18px; font-size: 1.45rem; letter-spacing: -.02em; color: #182033; }
+    h3, h4 { font-weight: normal; margin: 5px 0; }
+    
+    .callout {
+      background-color: #ffffff;
+      border-left: 5px solid #0066cc;
+      padding: 15px;
+      margin: 10px 0;
+    }
+    .callout h2 { color: #0047AB; }
+    
+    .formula-box {
+      background-color: var(--formula);
+      border-left: 4px solid #3b82f6;
+      padding: 12px 18px;
+      margin: 10px 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    button {
+      border: 0; border-radius: 12px; background: #4f46e5; color: white;
+      font: inherit; font-weight: 700; padding: 12px 18px; cursor: pointer;
+      margin: 0 0 20px; box-shadow: 0 8px 20px #4f46e526;
+    }
+    button:hover { background: #3730a3; }
+
+    ul, ol { padding-left: 20px; }
+    li { margin-bottom: 8px; }
+
+    @media (max-width: 600px) {
+      .wrapper { padding: 18px 12px 40px; }
+      .card { padding: 24px 18px; }
+    }
+    @media print {
+      body { background: white; }
+      .wrapper { max-width: none; padding: 0; }
+      .hero, .card { box-shadow: none; break-inside: avoid; }
+      button { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<main class="wrapper">
+  <header class="hero">
+    <h1>Límits i Continuïtat</h1>
+  </header>
+
+  <button class="btn-imprimir" onclick="window.print()">
+    🖨️ Descarrega el temari en PDF
+  </button>
+
+  <div class="grid">
+    
+    <!-- Secció 1: Domini d'una funció y=f(x)-->
+    <section class="card">
+      <h2>1. Domini d'una funció  y=f(x) </h2>
+      <h4>El domini són tots els valors pels quals la funció està definida.</h4>
+      
+      <img src="Imatges/Variables.jpg">
+      
+      <h4><strong>💡 Valors de la variable independent (x) que es poden substituir sense que doni error.</strong></h4>
+      <div class="callout">
+        <span style="color: #0047AB; font-size: 1.15em;"><strong>Principals fonts d'error:</strong></span>
+        <ul>
+          <li><strong>Error 1:</strong> Divisió per zero (0 al denominador).</li>
+          <li><strong>Error 2:</strong> Valors negatius dins d'una arrel d'índex parell.</li>
+          <li><strong>Error 3:</strong> Valors negatius o 0 dins d'un logaritme.</li>
+          <li><strong>Error 4:</strong> Valors incompatibles amb el context de l'enunciat.</li>
+        </ul>
+        
+      </div>
+         
+      <section class="card">
+  
+      <h3><strong>Càlcul analític del domini segons el tipus de funció:</strong></h3>
+      <ul>
+        <li>
+          <strong>Funció polinòmica:</strong>  Sempre existeix imatge per a tot valor de la variable independent.
+          <div class="formula-box">
+            f(x) = p(x)  <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Domini de f(x) = <math><mo>&#8477;</mo></math></strong>
+          </div>
+        </li>
+        <li>
+          <strong>Funció racional:</strong> Quocient de polinomis. S'exclouen del domini els valors que anul·len el denominador.
+          <div class="formula-box">
+           <strong><math>
+  <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+  <mo>=</mo>
+  <mfrac>
+    <mrow><mi>q</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow>
+    <mrow><mi>p</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow>
+  </mfrac>
+</math> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Domini de f(x) = <math><mo>&#8477;</mo></math></strong>\ { <i>x</i> | <i>p</i>(<i>x</i>) = 0 }
+          </div>
+        </li>
+        <li>
+          <strong>Funció irracional:</strong> Si l'índex de l'arrel és parell, el radicant ha de ser major o igual a zero. <p></p>Si l'índex és imparell, no hi ha cap restricció.
+          
+<div class="formula-box">
+  <p>
+    <strong>Arrel parell:</strong> 
+    <math>
+      <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi><mo>=</mo>
+      <msqrt><mi>p</mi><mo>(</mo><mi>x</mi><mo>)</mo></msqrt>
+    </math> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <strong> Domini de f(x) = </strong><span class="reals">&#8477;</span> \ { <i>x</i> | <i>p</i>(<i>x</i>) &lt; 0 } =  { <i>x</i> | <i>p</i>(<i>x</i>) &#8805; 0 }
+  <p>
+    <strong>Arrel imparell:</strong> 
+    <math>
+      <mi>g</mi><mi>(</mi><mi>x</mi><mi>)</mi><mo>=</mo>
+      <mroot>
+        <mrow><mi>p</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow>
+        <mn>3</mn>
+      </mroot>
+    </math>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <strong> Domini de f(x) = </strong><span class="reals">&ge;</span>
+  </p>
+</div>   
+        </li>
+        <li>
+          <strong>Funció logarítmica:</strong> L'argument ha de ser major que zero.
+          
+<div class="formula-box">
+    <math>
+      <strong><mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi><mo>=</mo>
+      log <mi>(p</mi><mo>(</mo><mi>x</mi><mo>))</mo></strong>
+    </math> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <strong> Domini de f(x) = </strong><span class="reals">&#8477;</span> \ { <i>x</i> | <i>p</i>(<i>x</i>) &le; 0 } =  { <i>x</i> | <i>p</i>(<i>x</i>) &gt; 0 }
+        </li>
+        <li>
+          <strong>Funció definida a trossos</strong> Cal veure quins valors poden donar "error" a cada una de les seves definicions.
+          
+<div class="formula-box">
+     <strong>Domini de f(x) = </strong><span class="reals">&#8477;</span> \ { <i>x</i> | x no es pot substituir sense "error" } 
+        </li>
+      </ul>
+      <h4><strong>💡  El recorregut d'una funció és el conjunt de possibles valors de y=f(x), es a dir, de la variable dependent.</strong></h4>
+    </section>
+
+    <!-- Secció 2: Continuïtat -->
+    
+    <section class="card">
+      <h2>2. Continuïtat d'una funció en un punt, f(x) és continua en x=a</h2>
+      <ul>
+        <li><strong>Gràficament:</strong> Una funció és contínua si es pot dibuixar la seva gràfica sense aixecar el llapis del paper.</li>
+        <li>
+          
+          <strong>Analíticament:</strong> Diem que <i>f</i>(<i>x</i>) és continua en <i>x</i> = <i>a</i> si: &nbsp;&nbsp;&nbsp;&nbsp; 
+      <math>
+        <mo>&exist;</mo>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><mi>a</mi></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+        <mo>=</mo>
+        <mi>f</mi><mi>(</mi><mi>a</mi><mi>)</mi>
+      </math>
+    </p>
+          <div class="formula-box">
+  <ul class="no-bullets" style="padding-left: 10px;">
+    <li>
+    &exist; <i>f</i>(<i>a</i>)<math>
+  <mo>&in;</mo>
+  <mi>&#8477;</mi>
+</math>  &nbsp;&nbsp;&nbsp;&nbsp; es a dir &nbsp;&nbsp;&nbsp;&nbsp; <i>a</i> &in; Domini de <i>f</i>(<i>x</i>)
+    </li>
+    <br>
+    <li>
+    &exist; 
+      <math>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><mi>a</mi></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+      </math> <math>
+  <mo>&in;</mo>
+  <mi>&#8477;</mi>
+  
+</math> 
+      &nbsp;&nbsp;&nbsp;&nbsp; es a dir &nbsp;&nbsp;&nbsp;&nbsp; 
+      <math>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><msup><mi>a</mi><mo>-</mo></msup></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+        <mo>=</mo>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><msup><mi>a</mi><mo>+</mo></msup></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+      </math>
+      <span style="color: #002060;"> [límit per l’esquerra és igual al límit per la dreta]</span>
+    </li>
+    <li>
+ <math>  
+  <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><mi>a</mi></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>  
+        <mo>=</mo>
+        <mi>f</mi><mi>(</mi><mi>a</mi><mi>)</mi>
+      </math>
+      
+</li>
+  </ul>
+          </div>
+          
+      </ul>
+    </section>
+
+    <!-- Secció 3: Tipus de discontinuïtat -->
+    <section class="card">
+      <h2>3. Tipus de discontinuïtat de f(x) en x=a</h2>
+      <ul>
+        <li>
+          <strong>Discontinuïtat evitable:</strong> Existeix el límit però no coincideix amb f(a) &nbsp;&nbsp;&nbsp;&nbsp;  o &nbsp;&nbsp;&nbsp;&nbsp; f(a) no existeix.
+          <div class="formula-box">
+            <math>
+        <mo>&exist;</mo>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><mi>a</mi></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>  
+  <mo>&in;</mo>
+  <mi>&#8477;</mi></math> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; però &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <math>  
+  <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><mi>a</mi></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>  
+        <mo>&ne;</mo>
+        <mi>f</mi><mi>(</mi><mi>a</mi><mi>)</mi>
+      </math>
+          </div>
+        </li>
+        <img src="Imatges/D_evitable_.jpg">
+        <h4>💡  El límit existeix i és finit, però el valor de la funció no coincideix amb el límit o la funció no està definida en el punt. La discontinuïtat es pot eliminar redefinint f(a) amb el valor del límit.</h4>
+        <li>
+          <strong>Discontinuïtat de salt (finit):</strong> Els límits laterals existeixen però són diferents.
+          <div class="formula-box">
+            <math>
+              <mo>&exist;</mo>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><msup><mi>a</mi><mo>-</mo></msup></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+        <mo>i</mo>
+        <mo>&exist;</mo>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><msup><mi>a</mi><mo>+</mo></msup></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi></math> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; però &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <math>  
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><msup><mi>a</mi><mo>-</mo></msup></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+        <mo>&ne;</mo>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><msup><mi>a</mi><mo>+</mo></msup></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi></math>
+      </math>
+          </div>
+        </li>
+         <img src="Imatges/D_salt_.jpg">
+        <li>
+          <strong>Discontinuïtat asimptòtica (o de salt infinit):</strong> Els límits laterals tendeixen a infinit.
+          <div class="formula-box">
+            <math>
+        <mo>&exist;</mo>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><mi>a</mi></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi></math>
+        = &plusmn;&infin;
+          </div>
+        </li>
+        <img src="Imatges/D_asimptotica_.jpg">
+        <li>
+          <strong>Discontinuïtat de segona espècie:</strong> Inexistència d'algun dels límits laterals.
+        </li>
+        <img src="Imatges/D_segesp_.jpg">
+        
+      </ul>
+    </section>
+
+    <!-- Secció 4: Càlcul de límits -->
+    <section class="card">
+      <h2>4. Càlcul de límits d'una funció en un punt <math>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><mi>a</mi></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+        <mo>
+      </math></h2>
+           
+        <ul>
+        <li>
+        <h4>En funcions <strong>definides a trossos, en els punts on canvia la definició </strong>, hem de calcular els límits laterals (per l’esquerra i per la dreta)</h4>
+        </li>
+        <div class="formula-box">
+        Si <math>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><msup><mi>a</mi><mo>-</mo></msup></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+        <mo>=</mo>
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><msup><mi>a</mi><mo>+</mo></msup></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+      </math> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; podem dir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<math>
+        
+        <munder>
+          <mo>lim</mo>
+          <mrow><mi>x</mi><mo>&rarr;</mo><mi>a</mi></mrow>
+        </munder>
+        <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+        <mo>=</mo>
+        <mi>f</mi><mi>(</mi><mi>a</mi><mi>)</mi>
+      </math> 
+
+        </div>
+        
+        <li><h4>On no canvia la definició, hem de substituir <strong>x = a </strong>  a la funció <math><mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi></math>, es a dir calcular <math><mi>f</mi><mi>(</mi><mi>a</mi><mi>)</mi></math>
+      </math></h4></li>	
+        
+        <p>Al substituir  <strong>x = a </strong> a la funció, podem trobar els següents casos:</p>
+        <div class="formula-box">
+        <ol class="indent-list">
+          <li>
+          <strong>Si <i>f</i>(<i>a</i>) &isin; &#8477;, &emsp; </strong> lim<sub><i>x</i>&rarr;<i>a</i></sub> <i>f</i>(<i>x</i>) = <i>f</i>(<i>a</i>)</p></li>
+        <li>
+          <strong>Si <i>f</i>(<i>a</i>) = <sup>0</sup>&frasl;<sub>0</sub>&nbsp;&nbsp;&nbsp;&nbsp; Indeterminació </strong> &nbsp;&nbsp;&nbsp;&nbsp;  Hem de factoritzar el numerador i el denominador i simplificar el factor (<i>x</i> &minus; <i>a</i>), a continuació tornar a substituir 
+        </li>
+        <li>
+          <strong>Si <i>f</i>(<i>a</i>)  = &plusmn;&infin; = <sup><i>k</i></sup>&frasl;<sub>0</sub>  &nbsp;&nbsp;&nbsp;&nbsp;(<i>k</i> &ne; 0)</strong>&nbsp;&nbsp;&nbsp;&nbsp;  Si volem veure el signe de l'infinit, hem de calcular els límits laterals (per l'esquerra i per la dreta).
+        </li>
+         <h4>💡  En aquest cas podem dir que la recta  <strong>x = a </strong>  és una asímptota vertical.</h4>
+      </div>
+        
+      </ol>
+        </section>
+    <!-- Secció 5: Càlcul de límits d'una funció a l'infinit -->
+    <section class="card">
+      <h2>5. Càlcul de límits d'una funció a l'infinit 
+        <math>
+          <munder>
+            <mo>lim</mo>
+            <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+          </munder>
+          <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+        </math>
+      </h2>
+
+      <h3><strong>1) Si <math><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></math> és un polinomi:</strong></h3>
+      <p>Només ens interessa el terme de grau més gran, ja que per valors molt grans (positius o negatius) tindrà molt més pes que els altres termes. Els límits sempre donaran infinit (<math><mo>&minus;</mo><mo>&infin;</mo></math> o <math><mo>+</mo><mo>&infin;</mo></math>), i en veurem el signe substituint.</p>
+      <div class="formula-box">
+      <math>
+  <munder>
+          <mo>lim</mo>
+            <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plus;</mo><mo>&infin;</mo></mrow>
+          </munder>
+        <msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mo>+</mo><msub><mi>a</mi><mi>n-1</mi></msub><msup><mi>x</mi><mi>n-1</mi></msup>
+ <mo>+ ... + </mo><msub><mi>a</mi><mi>0</mi></msub>
+        <mo>=</mo>
+<munder>
+          <mo>lim</mo>
+            <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plus;</mo><mo>&infin;</mo></mrow>
+          </munder>
+        <msub>
+    <mi>a</mi>
+    <mi>n</mi>
+  </msub>
+  <msup>
+    <mi>x</mi>
+    <mi>n</mi>
+  </msup>
+<mo>=</mo>
+<msub>
+    <mi>a</mi>
+    <mi>n</mi>
+  </msub>
+  <msup>
+    <mrow>
+      <mo>(</mo>
+      <mo>&plus;</mo>
+      <mo>&infin;</mo>
+      <mo>)</mo>
+    </mrow>
+    <mi>n</mi>
+  </msup>
+<mo>=</mo>
+<mo>&plusmn;</mo><mo>&infin;</mo>
+   </math>       
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h4> El signe de l'infinit resultant depèn del signe del coeficient.</h4>  
+<math>
+      <munder>
+          <mo>lim</mo>
+            <mrow><mi>x</mi><mo>&rarr;</mo><mo>&minus;</mo>
+      <mo>&infin;</mo></mrow>
+          </munder>
+        <msub>
+    <mi>a</mi>
+    <mi>n</mi>
+  </msub>
+  <msup>
+    <mi>x</mi>
+    <mi>n</mi>
+  </msup>      
+ <mo>+</mo>
+ <msub>
+ <mi>a</mi>
+    <mi>n-1</mi>
+  </msub>
+  <msup>
+    <mi>x</mi>
+    <mi>n-1</mi>
+  </msup>
+ <mo>+ ... + </mo>
+ <msub>
+ <mi>a</mi>
+    <mi>0</mi>
+  </msub>
+        <mo>=</mo>
+<munder>
+          <mo>lim</mo>
+            <mrow><mi>x</mi><mo>&rarr;</mo><mo>&minus;</mo>
+      <mo>&infin;</mo></mrow>
+          </munder>
+        <msub>
+    <mi>a</mi>
+    <mi>n</mi>
+  </msub>
+  <msup>
+    <mi>x</mi>
+    <mi>n</mi>
+  </msup>
+<mo>=</mo>
+<msub>
+    <mi>a</mi>
+    <mi>n</mi>
+  </msub>
+  <msup>
+    <mrow>
+      <mo>(</mo>
+      <mo>&minus;</mo>
+      <mo>&infin;</mo>
+      <mo>)</mo>
+    </mrow>
+    <mi>n</mi>
+  </msup>
+<mo>=</mo>
+<mo>&plusmn;</mo><mo>&infin;</mo>
+      </math> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h4> El signe de l'infinit resultant depèn del signe del coeficient i de si l'exponent és parell o imparell.</h4>  
+        </div>
+      
+      <h3><strong>2) Si <math><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></math> és una fracció algèbrica:</strong></h3>
+      <p>Surt la indeterminació 
+        <math>
+          <mfrac><mo>&infin;</mo><mo>&infin;</mo></mfrac>
+        </math>. 
+        Simplifiquem els termes de grau més gran del numerador i del denominador i substituïm l'infinit.
+      </p>
+      <div class="formula-box">
+      <math>
+  <munder>
+          <mo>lim</mo>
+            <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+          </munder>
+        <msub>
+          <mfrac>
+              <mrow><msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mo>+</mo><msub><mi>a</mi><mi>n-1</mi></msub><msup><mi>x</mi><mi>n-1</mi></msup>
+ <mo>+ ... + </mo><msub><mi>a</mi><mi>0</mi></msub></mrow>
+              <mrow><msub><mi>b</mi><mi>m</mi></msub><msup><mi>x</mi><mi>m</mi></msup><mo>+</mo><msub><mi>b</mi><mi>m-1</mi></msub><msup><mi>x</mi><mi>m-1</mi></msup>
+ <mo>+ ... + </mo><msub><mi>b</mi><mi>0</mi></msub></mrow>
+            </mfrac>
+        <mo>=</mo>
+        <munder>
+          <mo>lim</mo>
+            <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+          </munder>
+        <msub>
+          <mfrac>
+              <mrow><msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mo></mrow>
+              <mrow><msub><mi>b</mi><mi>m</mi></msub><msup><mi>x</mi><mi>m</mi></msup><mo></mrow>
+            </mfrac>
+   </math>  
+   <ul>
+        <li>
+          <math>
+            <mi>m</mi><mo>&gt;</mo><mi>n</mi>
+            <munder>
+              <mo>lim</mo>
+              <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+            </munder>
+             <mfrac>
+              <mrow><msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mo></mrow>
+              <mrow><msub><mi>b</mi><mi>m</mi></msub><msup><mi>x</mi><mi>m</mi></msup><mo></mrow>
+            </mfrac>
+             <mo>=</mo>
+            <mfrac>
+              <mrow><msub><mi>a</mi><mi>n</mi></msub></mrow>
+              <mrow><msub><mi>b</mi><mi>m</mi></msub><msup><mi>x</mi><mi>m-n</mi></msup><mo></mrow>
+            </mfrac>
+            <mo>=</mo>
+            <mfrac>
+              <mn>1</mn>
+              <mrow><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+            </mfrac>
+            <mo>=</mo><mn>0</mn>
+          </math> 
+          <br> Si l'exponent del denominador és més gran, el resultat sempre és 0.
+        </li>
+        <li>
+          <math>
+            <mi>m</mi><mo>=</mo><mi>n</mi>
+            <munder>
+              <mo>lim</mo>
+              <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+            </munder>
+             <mfrac>
+              <mrow><msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mo></mrow>
+              <mrow><msub><mi>b</mi><mi>m</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mo></mrow>
+            </mfrac>
+             <mo>=</mo>
+            <mfrac>
+              <mrow><msub><mi>a</mi><mi>n</mi></msub></mrow>
+              <mrow><msub><mi>b</mi><mi>m</mi></msub></mrow>
+            </mfrac>
+            
+          </math> 
+        <br>  Si tenen el mateix grau simplifiquem i queda un nombre real.
+        </li>
+        <li>
+          <math>
+            <mi>n</mi><mo>&gt;</mo><mi>m</mi>
+           <munder>
+              <mo>lim</mo>
+              <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+            </munder>
+             <mfrac>
+              <mrow><msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mo></mrow>
+              <mrow><msub><mi>b</mi><mi>m</mi></msub><msup><mi>x</mi><mi>m</mi></msup><mo></mrow>
+            </mfrac>
+             <mo>=</mo>
+            <mfrac>
+              <mrow><msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n-m</mi></msup><mo></mo></mrow>
+              <mrow><msub><mi>b</mi><mi>m</mi></msub><msup></mrow>
+            </mfrac>
+            <mo>=</mo>
+           <mo>&plusmn;</mo><mo>&infin;</mo> 
+           
+          </math> 
+           <br> Si l'exponent del numerador és més gran sempre dona &plusmn;&infin;, veurem el signe substituint.
+        </li>
+      </ul>
+
+        </div>
+
+      <h3><strong>3) Potències:</strong></h3>
+        <math>
+          <munder>
+            <mo>lim</mo>
+            <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+          </munder>
+          <msup><mrow><mo>(</mo><mfrac><mi>f</mi><mi>(</mi><mi>x</mi><msup><mi>)</mi></mfrac><mo>)</mo></mrow><mrow><mi>g</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msup>      
+          <mo>=</mo>
+          <munder>
+    <mo>lim</mo>
+    <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+  </munder>
+  <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi><msup><mo> </mo>
+    <mrow>
+      <munder>
+        <mo>lim</mo>
+        <mrow><mi>x</mi><mo>&rarr;</mo><mo>&plusmn;</mo><mo>&infin;</mo></mrow>
+      </munder>
+      <mi>g</mi><mi>(</mi><mi>x</mi><mi>)</mi>
+    </mrow>
+  </msup>
+        </math>
+      <div class="formula-box">
+        <p>
+          <math>
+            <msup><mi>a</mi><mrow><mo>+</mo><mo>&infin;</mo></mrow></msup>
+            <mo>=</mo>
+            <mrow>
+              <mo>{</mo>
+              <mtable columnalign="left">
+                <mtr><mtd><mo>+</mo><mo>&infin;</mo><mo>&nbsp;&nbsp;</mo><mtext>si  &nbsp;&nbsp;&nbsp;</mtext><mi>a</mi><mo>&gt;</mo><mn>1</mn></mtd></mtr>
+                <mtr><mtd><mn>   0</mn><mo>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</mo><mtext>si &nbsp;&nbsp;&nbsp; </mtext><mn>0</mn><mo>&lt;</mo><mi>a</mi><mo>&lt;</mo><mn>1</mn></mtd></mtr>
+              </mtable>
+            </mrow>
+          </math>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <math>
+            <msup><mi>a</mi><mrow><mominus;</mo><mo>&infin;</mo></mrow></msup>
+            <mo>=</mo>
+            <mfrac>
+              <mn>1</mn>
+              <msup><mi>a</mi><mrow><mo>+</mo><mo>&infin;</mo></mrow></msup>
+            </mfrac>
+            <mo>=</mo>
+            <mrow>
+              <mo>{</mo>
+              <mtable columnalign="left">
+                <mtr><mtd><mn>0</mn><mo>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</mo><mtext>si &nbsp;&nbsp;&nbsp; </mtext><mi>a</mi><mo>&gt;</mo><mn>1</mn></mtd></mtr>
+                <mtr><mtd><mo>+</mo><mo>&infin;</mo><mo>&nbsp;&nbsp;</mo><mtext>si &nbsp;&nbsp;&nbsp; </mtext><mn>0</mn><mo>&lt;</mo><mi>a</mi><mo>&lt;</mo><mn>1</mn></mtd></mtr>
+              </mtable>
+            </mrow>
+          </math>
+        </p>
+      </div>
+
+      
+
+      <div class="callout">
+        <span style="color: #0047AB; font-size: 1.1em;"><strong>Indeterminacions:</strong></span>
+        <ul>
+          <li><strong><math><mfrac><mrow><mo> &infin;</mo></mrow><mrow><mo>&infin;</mo></mrow></mfrac></math><mfrac></mfrac></li>
+          <li><strong><math><mo>&infin;</mo><mo>&minus;</mo><mo>&infin;</mo></math></strong> (quan els dos termes tenen el mateix grau)</li>
+          <li><strong><math><msup><mn>1</mn><mo>&infin;</mo></msup></math></strong> (tipus <i>e</i>)</li>
+        </ul>
+      </div>
+    </section>
