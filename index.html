@@ -116,8 +116,8 @@
       
       <img src="Imatges/Variables.jpg">
       
-      <h4><strong>💡 Dom (f) = Conjunt de valors de la variable independent (x) que es poden substituir sense que doni error.
-       <br> Im (f) = Conjunt de totes les imatges del domini,el conjunt de possibles valors de y=f(x), es a dir, de la variable dependent.
+      <h4><strong>💡 DOMINI: Dom (f) = Conjunt de valors de la variable independent (x) que es poden substituir sense que doni error.
+       <br> RECORREGUT o IMATGE: Im (f) = Conjunt de totes les imatges del domini,el conjunt de possibles valors de y=f(x), es a dir, de la variable dependent.
       </strong></h4>
       <div class="callout">
         <span style="color: #0047AB; font-size: 1.15em;"><strong>Principals fonts d'error:</strong></span>
@@ -166,7 +166,7 @@
   <p>
     <strong>Arrel imparell:</strong> 
     <math>
-      <mi>g</mi><mi>(</mi><mi>x</mi><mi>)</mi><mo>=</mo>
+      <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi><mo>=</mo>
       <mroot>
         <mrow><mi>p</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow>
         <mn>3</mn>
@@ -179,22 +179,68 @@
           <strong>Funció Exponencial</strong> Sempre existeix imatge per a tot valor de la variable independent.
 <div class="formula-box">
     <math>
-      <strong><mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi><mo>=</mo> a^x</strong> 
+    <mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi><mo>=</mo><mi>a</mi><sup>x</sup>
       
     </math> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <strong> Domini de f(x) = </strong><span class="reals">&#8477;</span> 
         <li>
           <strong>Funció logarítmica:</strong> L'argument ha de ser major que zero.
 <div class="formula-box">
-    <math>
-      <strong><mi>f</mi><mi>(</mi><mi>x</mi><mi>)</mi><mo>=</mo>
-      log <mi>(p</mi><mo>(</mo><mi>x</mi><mo>))</mo></strong>
-    </math> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <strong> Domini de f(x) = </strong><span class="reals">&#8477;</span> \ { <i>x</i> | <i>p</i>(<i>x</i>) &le; 0 } =  { <i>x</i> | <i>p</i>(<i>x</i>) &gt; 0 }
+    <math xmlns= display="block"justify="left">
+  <mrow>
+    <mi>f</mi>
+    <mi>(</mi>
+    <mi>x</mi>
+    <mi>)</mi>
+    <mo>=</mo>
+    <msub>
+      <mi>log</mi>
+      <mi>a</mi>
+    </msub>
+    <mo>(</mo>
+    <mi>p</mi>
+    <mi>(</mi>
+    <mi>x</mi>
+    <mi>)</mi>
+    <mo>)</mo>
+  </mrow>
+</math> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <strong> Domini de f(x) = </strong><span class="reals">&#8477;</span> \ { <i>x</i> | <i>p</i>(<i>x</i>) &le; 0 } =  { <i>x</i> | <i>p</i>(<i>x</i>) &gt; 0 }
         </li>
         <li>
           <strong>Funció definida a trossos</strong> Cal veure quins valors poden donar "error" a cada una de les seves definicions.
           
-<div class="formula-box">
-     <strong>Domini de f(x) = </strong><span class="reals">&#8477;</span> \ { <i>x</i> | x no es pot substituir sense "error" } 
+          <div class="formula-box"> 
+            <div style="display: inline-flex; align-items: center; font-family: 'Times New Roman', Times, serif; font-size: 1.25rem;">
+  <span style="margin-right: 0.2em;"><i>f</i>(<i>x</i>) =</span>
+  <table style="border-collapse: collapse; text-align: left; vertical-align: middle;">
+    <tr>
+      <!-- La clau ocupa les 3 files i s'estira verticalment -->
+      <td rowspan="3" style="padding-right: 5px; font-size: 1.25rem;">
+        <svg height="100%" width="12px" viewBox="0 0 10 100" preserveAspectRatio="none" style="display: block; height: 4.5em;">
+          <path d="M9,1 C4,1 4,20 4,45 C4,48 1,50 1,50 C1,50 4,52 4,55 C4,80 4,99 9,99" fill="none" stroke="black" stroke-width="2"/>
+        </svg>
+      </td>
+      <td style="padding-right: 15px; text-align: center;">
+        <mi>f<sub>1</sub></mi>(<i>x</i>)
+      </td>
+      <td style="padding-right: 5px;">,</td>
+      <td>si <i>x</i> &isin; (&minus;&infin;,a)</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px 15px 10px 0; text-align: center;"><mi>f<sub>2</sub></mi>(<i>x</i>)</td>
+      <td style="padding-right: 5px;">,</td>
+      <td>si <i>x</i> &isin; (a, b)</td>
+    </tr>
+    <tr>
+      <td style="padding-right: 15px; text-align: center;">
+        <mi>f<sub>3</sub></mi>(<i>x</i>)
+      </td>
+      <td style="padding-right: 5px;">,</td>
+      <td>si <i>x</i> &isin; (b, +&infin;)</td>
+    </tr>
+  </table>
+</div>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+     <strong>Domini de f(x) = </strong><span class="reals">&#8477;</span> \ { <i>x</i> | x no es pot substituir sense "error" o que no pertanyen a cap dels intervals que es poden substituir} 
         </li>
       </ul>
       </section>   
@@ -206,7 +252,7 @@
     <section class="card">
       <h2>2. Continuïtat d'una funció en un punt, f(x) és continua en x=a</h2>
       <ul>
-        <li><strong>Gràficament:</strong> Una funció és contínua si es pot dibuixar la seva gràfica sense aixecar el llapis del paper.</li>
+        <li><strong>Gràficament:</strong> Una funció és contínua en <i>x</i> = <i>a</i> si: es pot dibuixar la seva gràfica passant pel punt <i>(a</i><i>,</i><i>f</i><i>(a))</i> sense aixecar el "llapis" del paper.</li>
         <li>
           
           <strong>Analíticament:</strong> Diem que <i>f</i>(<i>x</i>) és continua en <i>x</i> = <i>a</i> si: &nbsp;&nbsp;&nbsp;&nbsp; 
